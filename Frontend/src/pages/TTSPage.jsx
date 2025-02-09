@@ -10,8 +10,10 @@ function TTSPage() {
     const [audioUrlAgent, setAudioUrlAgent] = useState(null);
     const [loadingAgent, setLoadingAgent] = useState(false);
 
+    console.log("***");
     const VITE_LINK = import.meta.env.VITE_LINK;
     const LOCAL_LINK = 'http://localhost:5000';
+    console.log("***");
 
     console.log(LOCAL_LINK);
     console.log(VITE_LINK);
