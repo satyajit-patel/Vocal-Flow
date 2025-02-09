@@ -15,7 +15,7 @@ A web-based application for real-time Speech-to-Text (STT) and Text-to-Speech (T
 
 ## Challenges Faced
 - **TTS Library Choice**: Initially explored `elevenlabs`, but it was not free for deployment, so `gTTS` was used.
-- **STT Library Used**: `SpeechRecognition` with `Google Web Speech API`.
+- **STT Library Used**: Used browser’s built-in SpeechRecognition API instead of `PyAudio` and `FFmpeg`.
 
 ## Future Scope
 - Integrating a real-time transcription feature.

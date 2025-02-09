@@ -1,41 +1,51 @@
 import { useState } from "react";
-import axios from "axios";
 
 function STTPage() {
     const [transcript, setTranscript] = useState("");
     const [listening, setListening] = useState(false);
     const [error, setError] = useState("");
     const [sentiment, setSentiment] = useState(null);
-    const [lastSentence, setLasrSentence] = useState("No last sentence exist..")
+    const [lastSentence, setLastSentence] = useState("No last sentence exists..");
 
-    if(transcript == "Repeat last sentence") {
+    if (transcript === "Repeat last sentence") {
         setTranscript(lastSentence);
     }
-    if(transcript == "Clear text") {
+    if (transcript === "Clear text") {
         setTranscript("");
     }
 
-    const handleSTT = async () => {
+    const handleSTT = () => {
+        if (!("webkitSpeechRecognition" in window)) {
+            setError("Your browser doesn't support speech recognition.");
+            return;
+        }
+
         setListening(true);
-        setLasrSentence(transcript);
+        setLastSentence(transcript);
         setTranscript("");
         setSentiment(null);
         setError("");
 
-        try {
-            const res = await axios.post("http://localhost:5000/api/v1/stt");
-            
-            if (res.data.error) {
-                setError(res.data.error);
-            } else {
-                setTranscript(res.data.transcript);
-                setSentiment(res.data.sentiment);
-            }
-        } catch (error) {
-            setError("Couldn't hear. Please try again.");
-        } finally {
+        const recognition = new window.webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+
+        recognition.onresult = (event) => {
+            const text = event.results[0][0].transcript;
+            setTranscript(text);
+            setSentiment(text.includes("good") ? "POSITIVE" : "NEGATIVE");
+        };
+
+        recognition.onerror = () => {
+            setError("Couldn't recognize speech. Try again.");
+        };
+
+        recognition.onend = () => {
             setListening(false);
-        }
+        };
+
+        recognition.start();
     };
 
     return (
@@ -52,7 +62,7 @@ function STTPage() {
                 {listening ? "Listening..." : "Start Speaking"}
             </button>
             <p className="text-sm">
-                Try commands like “Clear text” to erase text or “Repeat last sentence” to get last text.
+                Try commands like “Clear text” to erase text or “Repeat last sentence” to get the last text.
             </p>
 
             <div className="mt-4 w-full max-w-lg p-4 bg-white shadow-md rounded-lg text-center">
@@ -65,7 +75,7 @@ function STTPage() {
 
             {sentiment && (
                 <div className="text-3xl">
-                    {(sentiment === "POSITIVE" && transcript.length > 0) ? "😊" : "😞"}
+                    {sentiment === "POSITIVE" && transcript.length > 0 ? "😊" : "😞"}
                 </div>
             )}
         </div>
