@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from services.stt_service import stt_process
 from services.tts_service import tts_process
+from services.tts_service_agent import tts_process_agent
 
 app = Flask(__name__)
 CORS(app)
@@ -13,6 +14,10 @@ def speech_to_text():
 @app.route("/api/v1/tts", methods=["POST"])
 def text_to_speech():
     return tts_process()
+
+@app.route("/api/v1/tts-agent", methods=["POST"])
+def text_to_speech_agent():
+    return tts_process_agent()
 
 @app.route("/", methods=["GET"])
 def home():

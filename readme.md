@@ -26,21 +26,18 @@ A web-based application for real-time Speech-to-Text (STT) and Text-to-Speech (T
 ## Setup Guide
 
 ### Clone the Project
-1. Open a terminal and run:
-   ```
-   git clone <repository-url>
-   ```
-2. 
+```
+git clone <repository-url>
+```
 ### Backend Setup
-   ```
-   cd Backend
-   pip install -r requirements.txt
-   python app.py
-   ```
-3. 
+```
+cd Backend
+pip install -r requirements.txt
+python app.py
+```
 ### Frontend Setup
-   ```
-   cd Frontend
-   npm install
-   npm run dev
-   ```
+```
+cd Frontend
+npm install
+npm run dev
+```
