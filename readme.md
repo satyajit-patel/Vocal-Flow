@@ -10,8 +10,12 @@ A web-based application for real-time Speech-to-Text (STT) and Text-to-Speech (T
 - **Voice Commands**: Executes specific commands based on recognized speech.
 
 ## Demo
-- 🎥 **Short Video Presentation**: _(To be added)_
-- 🚀 **Live Demo**: [Click Here](#) _(Vercel link to be updated)_
+- 🎥 **Short Video Presentation**: [Click Here](https://drive.google.com/file/d/1Ezlh4apfTggCk6GAeaFBWwkmGQPKXDs7/view?usp=sharing)
+- 🚀 **Live Demo**: [Click Here](https://vocal-flow.vercel.app/)
+
+## ☁️ Deployment
+- **Frontend**: [Vercel](https://vercel.com/)  
+- **Backend**: [Render](https://render.com/)  
 
 ## Challenges Faced
 - **TTS Library Choice**: Initially explored `elevenlabs`, but it was not free for deployment, so `gTTS` was used.
