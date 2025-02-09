@@ -7,9 +7,9 @@ from services.tts_service_agent import tts_process_agent
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/v1/stt", methods=["POST"])
-def speech_to_text():
-    return stt_process()
+# @app.route("/api/v1/stt", methods=["POST"])
+# def speech_to_text():
+#     return stt_process()
 
 @app.route("/api/v1/tts", methods=["POST"])
 def text_to_speech():

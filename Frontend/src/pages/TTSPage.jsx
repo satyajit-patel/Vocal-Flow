@@ -10,13 +10,19 @@ function TTSPage() {
     const [audioUrlAgent, setAudioUrlAgent] = useState(null);
     const [loadingAgent, setLoadingAgent] = useState(false);
 
+    const VITE_LINK = import.meta.env.VITE_LINK;
+    const LOCAL_LINK = 'http://localhost:5000';
+
+    console.log(LOCAL_LINK);
+    console.log(VITE_LINK);
+
     const handleTTS = async (e) => {
         e.preventDefault();
         setAudioUrlAgent(null);
         setLoading(true);
         setAudioUrl(null);
         try {
-            const res = await axios.post("http://localhost:5000/api/v1/tts", { text }, { responseType: "blob" });
+            const res = await axios.post(`${VITE_LINK}/api/v1/tts`, { text }, { responseType: "blob" });
             const audioBlob = new Blob([res.data], { type: "audio/mpeg" });
             const url = URL.createObjectURL(audioBlob);
             setAudioUrl(url);
@@ -33,7 +39,7 @@ function TTSPage() {
         setLoadingAgent(true);
         setAudioUrlAgent(null);
         try {
-            const res = await axios.post("http://localhost:5000/api/v1/tts-agent", { textAgent }, { responseType: "blob" });
+            const res = await axios.post(`${VITE_LINK}/api/v1/tts-agent`, { textAgent }, { responseType: "blob" });
             const audioBlob = new Blob([res.data], { type: "audio/mpeg" });
             const url = URL.createObjectURL(audioBlob);
             setAudioUrlAgent(url);
